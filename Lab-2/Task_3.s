@@ -6,17 +6,15 @@
 .global fill_ram            # Make function visible to C program
 
 fill_ram:
-    #Store FFh into RAM locations 50H - 58H using direct addressing
+    #Store FFh into RAM locations 50H - 58H using indirect addressing
 
-    movb $0x00, ram+0x50
-    movb $0x00, ram+0x51
-    movb $0x00, ram+0x52
-    movb $0x00, ram+0x53
-    movb $0x00, ram+0x54
-    movb $0x00, ram+0x55
-    movb $0x00, ram+0x56
-    movb $0x00, ram+0x57
-    movb $0x00, ram+0x58
+    movl $(ram + 0x50), %eax
+
+    ram_loop:
+        movb $0x00, (%eax)
+        incl %eax
+        cmpl $(ram + 0x59), %eax
+        jne ram_loop
 
     ret                     # Return control back to C program
 
