@@ -8,13 +8,13 @@
 fill_ram:
     #Store FFh into RAM locations 50H - 58H using indirect addressing
 
-    movl $(ram + 0x50), %eax
-    movb $1, %cl              # Start at 1
-    movb $10, %ch             # End at n (n = 10)
+    movl $(ram + 0x50), %eax    # EAX = RAM[50H]
+    movb $1, %cl                # Start at 1
+    movb $10, %ch               # End at n (n = 10)
     incb %ch
 
-    ram_loop:
-        addb %cl, (%eax)
+    ram_loop:                   # RAM[50H] = 1+2+3+...+n
+        addb %cl, (%eax)        
         incb %cl
         cmpb %ch, %cl
         jne ram_loop
