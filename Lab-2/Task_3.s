@@ -6,7 +6,7 @@
 .global fill_ram            # Make function visible to C program
 
 fill_ram:
-    #Store FFh into RAM locations 50H - 58H using indirect addressing
+    #Store 00h into RAM locations 50H - 58H using indirect addressing
 
     movl $(ram + 0x50), %eax
 
